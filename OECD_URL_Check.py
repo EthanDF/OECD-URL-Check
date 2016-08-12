@@ -3,6 +3,7 @@ __author__ = 'fenichele'
 import urllib
 from urllib import request
 from urllib import error
+from urllib.request import Request, urlopen
 
 urlFiles = 'OECD_URLs.txt'
 
@@ -20,7 +21,8 @@ def checkURL(url):
 
     checkText = 'You or your institution have access to this content'
     try:
-        with urllib.request.urlopen(url) as r:
+        req = Request(url,headers={'User-Agent': 'Mozilla/5.0'})
+        with urlopen(req) as r:
             if checkText in r.read().decode('utf-8'):
                 pass
             else:
